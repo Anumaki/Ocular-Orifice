@@ -1,6 +1,6 @@
 {
-  "version": "1.4.9.2",
-  "setup_url": "https://github.com/Anumaki/Ocular-Orifice/releases/download/v1.4.9.2/Ocular-Orifice-1.4.9.2-Setup.exe",
-  "sha256": "A75A142ADAD0C31628689A75A99EF4FD1E794477DEC3CF159F3C582BD9DA2178",
-  "notes": "Redesigned Format controls, improved rounded UI, Settings layout fixes, Ko-fi integration and GitHub update support."
+  "version": "1.4.9.3",
+  "setup_url": "https://github.com/Anumaki/Ocular-Orifice/releases/download/v1.4.9.3/Ocular-Orifice-1.4.9.3-Setup.exe",
+  "sha256": "5E334FDD6F1EA72E05DDF6C59246CDCC5EFC7A4AD1428CAFEFB0496828C0C164",
+  "notes": "Updater pipeline test release."
 }
