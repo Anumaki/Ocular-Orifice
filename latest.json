@@ -1,6 +1,6 @@
 {
-  "version": "1.4.9.5",
-  "setup_url": "https://github.com/Anumaki/Ocular-Orifice/releases/download/1.4.9.5/Ocular-Orifice-1.4.9.5-Setup.exe",
-  "sha256": "09499241C69B9C454901543A7FCCA89D77B884E28F7FDDF0D9E1EFC4845DDD7F",
-  "notes": "Improved dynamic button sizing across all supported languages and added a quick update check button to the main interface."
+  "version": "1.4.9.7",
+  "setup_url": "https://github.com/Anumaki/Ocular-Orifice/releases/download/1.4.9.7/Ocular-Orifice-1.4.9.7-Setup.exe",
+  "sha256": "7CA840D0FF8FD7670D154475A30BA043CA7B61121E28D2869505983428B4B333",
+  "notes": "Polished the About window with compact spacing, aligned buttons, and improved layout across languages and themes."
 }
