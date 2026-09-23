@@ -1,6 +1,6 @@
 {
-  "version": "1.4.9.4",
-  "setup_url": "https://github.com/Anumaki/Ocular-Orifice/releases/download/1.4.9.4/Ocular-Orifice-1.4.9.4-Setup.exe",
-  "sha256": "D7672A974C01888B548C7E6AB3B854AD3EE267BC47CBAC340BC0040569649773",
-  "notes": "Added English, Serbian, Spanish and French language support, UI improvements and an improved application update/restart process."
+  "version": "1.4.9.5",
+  "setup_url": "https://github.com/Anumaki/Ocular-Orifice/releases/download/1.4.9.5/Ocular-Orifice-1.4.9.5-Setup.exe",
+  "sha256": "09499241C69B9C454901543A7FCCA89D77B884E28F7FDDF0D9E1EFC4845DDD7F",
+  "notes": "Improved dynamic button sizing across all supported languages and added a quick update check button to the main interface."
 }
