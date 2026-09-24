@@ -1,6 +1,6 @@
 {
-  "version": "1.4.9.7",
-  "setup_url": "https://github.com/Anumaki/Ocular-Orifice/releases/download/1.4.9.7/Ocular-Orifice-1.4.9.7-Setup.exe",
-  "sha256": "7CA840D0FF8FD7670D154475A30BA043CA7B61121E28D2869505983428B4B333",
-  "notes": "Polished the About window with compact spacing, aligned buttons, and improved layout across languages and themes."
+  "version": "1.5",
+  "setup_url": "https://github.com/Anumaki/Ocular-Orifice/releases/download/1.5/Ocular-Orifice-1.5-Setup.exe",
+  "sha256": "38913137AA8290D166DFD3F9DD5E3F578A3004D844D5406BB71F6A39348A17FB",
+  "notes": "Application, extension, installer, build/portable filenames, guide headers and update-manifest template now use 1.5. Windows installer numeric version: 1.5.0.0"
 }
