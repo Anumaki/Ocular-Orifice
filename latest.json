@@ -1,6 +1,6 @@
 {
-  "version": "1.5",
-  "setup_url": "https://github.com/Anumaki/Ocular-Orifice/releases/download/1.5/Ocular-Orifice-1.5-Setup.exe",
-  "sha256": "38913137AA8290D166DFD3F9DD5E3F578A3004D844D5406BB71F6A39348A17FB",
+  "version": "1.5.1",
+  "setup_url": "https://github.com/Anumaki/Ocular-Orifice/releases/download/1.5.1/Ocular-Orifice-1.5.1-Setup.exe",
+  "sha256": "219A4F2D53EB351B7BAE75C8B9ED381EF514C3F9CC6A4E63C7DABE442ED697C8",
   "notes": "Application, extension, installer, build/portable filenames, guide headers and update-manifest template now use 1.5. Windows installer numeric version: 1.5.0.0"
 }
