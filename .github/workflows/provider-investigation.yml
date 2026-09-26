@@ -1,0 +1,78 @@
+name: Provider reproduction (Windows)
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  provider:
+    runs-on: windows-2022
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: isolated-long
+            linker: isolated
+            location: long
+          - name: isolated-short
+            linker: isolated
+            location: short
+          - name: hoisted-long
+            linker: hoisted
+            location: long
+    name: ${{ matrix.name }}
+    steps:
+      - name: Reproduce exact component versions and inspect resolution
+        shell: pwsh
+        env:
+          LINKER: ${{ matrix.linker }}
+          LOCATION: ${{ matrix.location }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $false
+          $base = if ($env:LOCATION -eq 'short') { 'C:\oo' } else { Join-Path $env:LOCALAPPDATA 'Programs\Ocular Orifice\provider' }
+          git clone --depth 1 --branch 2.0.0 https://github.com/Brainicism/bgutil-ytdlp-pot-provider.git $base
+          if ($LASTEXITCODE -ne 0) { throw 'Source clone failed' }
+          $server = Join-Path $base 'server'
+          $release = Invoke-RestMethod https://api.github.com/repos/denoland/deno/releases/tags/v2.9.7
+          $asset = $release.assets | Where-Object name -eq 'deno-x86_64-pc-windows-msvc.zip'
+          $zip = Join-Path $env:RUNNER_TEMP 'deno.zip'
+          Invoke-WebRequest $asset.browser_download_url -OutFile $zip
+          $actual = 'sha256:' + (Get-FileHash $zip -Algorithm SHA256).Hash.ToLowerInvariant()
+          if ($actual -ne $asset.digest) { throw 'Deno digest mismatch' }
+          $runtime = Join-Path $env:RUNNER_TEMP 'deno'
+          Expand-Archive $zip $runtime
+          $deno = Join-Path $runtime 'deno.exe'
+          & $deno --version
+          Set-Location $server
+          $env:DENO_DIR = Join-Path $server '.ocular-deno-cache'
+          $env:DENO_NO_UPDATE_CHECK = '1'
+          $linker = "--node-modules-linker=$env:LINKER"
+          & $deno install --node-modules-dir=auto $linker --allow-scripts=npm:canvas --frozen
+          if ($LASTEXITCODE -ne 0) { throw 'Provider install failed' }
+          & $deno cache --node-modules-dir=auto $linker --frozen src/main.ts
+          if ($LASTEXITCODE -ne 0) { Write-Warning 'Cache warm-up failed' }
+          $cache = Join-Path $env:USERPROFILE '.cache\bgutil-ytdlp-pot-provider'
+          New-Item -ItemType Directory -Force $cache | Out-Null
+          $modules = Join-Path $server 'node_modules'
+          & $deno run --frozen --no-prompt --node-modules-dir=auto $linker --allow-env --allow-net "--allow-ffi=$modules" "--allow-write=$cache" "--allow-read=$cache,$server" src/generate_once.ts --version
+          $restrictedCode = $LASTEXITCODE
+          Write-Host "APP_PERMISSION_EXIT=$restrictedCode"
+          & $deno run --frozen --no-prompt --node-modules-dir=auto $linker -A src/generate_once.ts --version
+          $unrestrictedCode = $LASTEXITCODE
+          Write-Host "UNRESTRICTED_EXIT=$unrestrictedCode"
+          @'
+          import { createRequire } from "node:module";
+          const require = createRequire(import.meta.url);
+          for (const name of ["proxy-agent", "jsdom"]) {
+            try {
+              const entry = require.resolve(name);
+              const child = createRequire(entry);
+              console.log(JSON.stringify({name, entry, lru: child.resolve("lru-cache")}));
+            } catch (error) { console.error(String(error)); }
+          }
+          '@ | Set-Content -Encoding utf8 resolution.mjs
+          & $deno run --frozen --node-modules-dir=auto $linker -A resolution.mjs
+          if ($restrictedCode -ne 0) { throw "Provider failed with application permissions (unrestricted=$unrestrictedCode)" }
