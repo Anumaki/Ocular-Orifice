@@ -1,6 +1,6 @@
 {
-  "version": "1.5.1",
-  "setup_url": "https://github.com/Anumaki/Ocular-Orifice/releases/download/1.5.1/Ocular-Orifice-1.5.1-Setup.exe",
-  "sha256": "219A4F2D53EB351B7BAE75C8B9ED381EF514C3F9CC6A4E63C7DABE442ED697C8",
-  "notes": "Fixed downloads failing when long video titles created an overly long temporary file path."
+  "version": "1.5.2",
+  "setup_url": "https://github.com/Anumaki/Ocular-Orifice/releases/download/1.5.2/Ocular-Orifice-1.5.2-Setup.exe",
+  "sha256": "581FC54CA26E63E6A3DC36872F23EA5BD26F3F316F113D81E007A8AF33F96AA0",
+  "notes": "Fix long temporary download paths and preserve completed files if final validation or moving fails."
 }
